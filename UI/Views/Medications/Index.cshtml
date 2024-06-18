@@ -1,0 +1,78 @@
+﻿@model X.PagedList.IPagedList<UI.ViewModels.Medications.MedicationVM>
+@using X.PagedList.Mvc.Core;
+@using UI.ViewModels.Medications;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Medications</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Manufacturer
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Dosage
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                ExpirationDate
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (MedicationVM item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Manufacturer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dosage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpirationDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>
+<form method="get" asp-action="index">
+    <label for="name">
+        Search by Name:
+    </label>
+    <input type="text" id="FName" name="name" />
+    <button type="submit"> Search </button>
+</form>
